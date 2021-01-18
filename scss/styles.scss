@@ -1,0 +1,498 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: #7AC7A8;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.book-wrapper{
+    background-image: url(/img/book-shelf.jpg);
+    background-size: cover;
+    background-position: center;
+    width: 90vw;
+    // height: 100%;
+    margin: 3rem auto;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px black;
+    // position: relative;
+
+    .transparent{
+        background-color: rgba($color: #a3ccbc, $alpha: 0.85);
+        width: 100%;
+        overflow: hidden;
+        margin: 3rem auto;
+        border-radius: 10px;
+    }
+
+    .header{
+        background-color: rgba($color:  rgb(7, 43, 23),$alpha: 0.7);
+        padding: 15px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .header-h1{
+            text-transform: uppercase;
+            font-size: 1.7rem;
+            margin: 0;
+            padding-bottom: 3px;
+            color:#c0f0dd;
+        }
+
+        .header-p{
+            color: rgba($color: #fff, $alpha: 0.6);
+            color:white;
+        }
+    }
+
+    .top-add-search{
+        display: flex;
+        justify-content: center;
+        
+        .new-book{
+            display: unset;
+            text-align: center;
+            margin: 35px 15px 0 15px;
+            background-color: rgba($color: #7AC7A8, $alpha: 0.8);
+            box-shadow: 2px 2px 5px black;
+            text-decoration: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            color: black;
+        }
+
+        .find-book{
+            display: unset;
+            text-align: center;
+            margin: 35px 15px 0 15px;
+            background-color: rgba($color: #7AC7A8, $alpha: 0.8);
+            box-shadow: 2px 2px 5px black;
+            text-decoration: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            color: black;
+        }
+
+        .new-book:hover, .find-book:hover{
+            background-color: black;
+            box-shadow: none;
+            color: #7AC7A8;
+        }
+    }
+
+    .search-add-toggle{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        margin-top: 50px;
+        position: relative;
+
+        .closeBtn{
+            font-size: 2.5rem;
+            color: rgba($color:  rgb(7, 43, 23),$alpha: 0.7);
+            position: absolute;
+            top: -50px;
+            left: 65px;
+            display: none;
+            cursor: pointer;
+        }
+
+        .new-add-panel{
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            // margin-top: -20px;
+            margin-bottom: 25px;
+    
+            input{
+                width: 230px;
+                font-size: 0.9rem;
+                outline: none;
+                padding: 7px 5px;
+                border: none;
+                border-radius: 3px;
+                margin-bottom: 10px;
+            }
+
+            .add-btn{
+                text-align: center;
+                background-color: rgba($color:  rgb(7, 43, 23),$alpha: 0.7);
+                color: white;
+                padding: 7px 20px;
+                cursor: pointer;
+            }
+
+                .add-btn:hover{
+                    box-shadow: 2px 2px 8px black;
+                }
+            }
+
+            .search-panel{
+                position: relative;
+                display: none;
+                justify-content: center;
+                align-items: center;
+                color: rgba($color:  rgb(7, 43, 23),$alpha: 0.7);
+
+                input{
+                    width: 230px;
+                    font-size: 0.9rem;
+                    outline: none;
+                    padding: 7px 5px;
+                    border: none;
+                    border-radius: 3px;
+                    margin-bottom: 20px;
+                }
+
+                .fa-search{
+                    font-size: 1.1rem;
+                    position: absolute;
+                    right: 5px;
+                    top: 2px;
+                    padding: 5px;
+                    cursor: default;
+                }
+            }
+        }
+}
+
+    .book-list{
+        background-color: rgba($color: #fff, $alpha: 0.3);
+        border-left: 4px solid rgba($color: rgb(7, 43, 23),$alpha: 0.8);
+        width: 90%;
+        margin: auto;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+
+        .book-item{
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: auto;
+        }
+
+        .book-info{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
+            .book-title{
+                font-size: 1.3rem;
+                font-weight: bold;
+                text-transform: capitalize;
+            }
+
+            .author-info{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                margin: 5px 0;
+
+                .author-name{
+                    font-size: 1.1rem;
+                    margin-right: 15px;
+                    text-transform: capitalize;
+                }
+
+                .date{
+                    // background-color: rgba($color:  rgb(7, 43, 23),$alpha: 0.8);
+                    border: 1px solid rgba($color:  rgb(7, 43, 23),$alpha: 0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 5px;
+                    padding: 2px;
+
+                    .read-year{
+                        background-color: rgba($color: #7AC7A8, $alpha: 0.8);
+                        font-size: 0.8rem;
+                        padding: 2px 3px;
+                        border-radius: 2px;
+                    }
+
+                    .year{
+                        // color: white;
+                        font-size: 0.8rem;
+                        padding: 2px 5px;
+                    }
+                }
+            }
+
+            .delete{
+                text-decoration: none;
+                background-color: rgba($color:  rgb(7, 43, 23),$alpha: 0.9);
+                color: white;
+                text-transform: uppercase;
+                width: 120px;
+                text-align: center;
+                padding: 5px 9px;
+                margin-top: 10px;
+                cursor: pointer;
+            }
+
+            .deactivated{
+                text-decoration: none;
+                background-color: rgba($color:  rgb(7, 43, 23),$alpha: 0.4);
+                color: white;
+                text-transform: uppercase;
+                width: 120px;
+                text-align: center;
+                padding: 5px 9px;
+                margin-top: 10px;
+                cursor: not-allowed;
+
+                i{
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+
+
+@media screen and (min-width: 768px){
+    .book-wrapper{
+        width: 65vw;
+    
+        .header{    
+            padding: 25px 0;
+
+            .header-h1{
+                font-size: 2rem;
+            }
+    
+            .header-p{
+                font-size: 1.1rem;
+            }
+        }
+    
+        .search-add-toggle{    
+            .closeBtn{
+                left: 100px;
+            }
+    
+            .new-add-panel{
+                margin-bottom: 30px;
+        
+                input{
+                    width: 300px;
+                    font-size: 1rem;
+                    padding: 8px 6px;
+                    border-radius: 4px;
+                    margin-bottom: 15px;
+                }
+    
+                .add-btn{
+                    padding: 8px 20px;
+                }
+            }
+    
+                .search-panel{    
+                    input{
+                        width: 300px;
+                        font-size: 1rem;
+                        padding: 8px 6px;
+                        border-radius: 4px;
+                        margin-bottom: 15px;
+                    }
+    
+                    .fa-search{
+                        font-size: 1.2rem;
+                        top: 4px;
+                    }
+                }
+        }
+    }
+    
+        .book-list{
+            width: 80%;
+            margin-bottom: 30px;
+    
+            .book-item{
+                padding: 20px 20px;
+            }
+    
+            .book-info{    
+                .book-title{
+                    font-size: 1.4rem;
+                }
+    
+                .author-info{
+                    margin: 10px 0;
+    
+                    .author-name{
+                        font-size: 1.2rem;
+                        margin-right: 25px;
+                    }
+    
+                    .date{
+                        padding: 3px;
+    
+                        .read-year{
+                            font-size: 1rem;
+                            padding: 2px 8px;
+                        }
+    
+                        .year{
+                            font-size: 1rem;
+                            padding: 2px 8px;
+                        }
+                    }
+                }
+    
+                .delete{
+                    padding: 10px 20px;
+                }
+    
+                .deactivated{
+                    padding: 10px 20px;
+
+                    i{
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+}
+
+@media screen and (min-width: 1024px){
+    .book-wrapper{
+        width: 60vw;
+    
+        .transparent{
+            background-color: rgba($color: #a3ccbc, $alpha: 0.9);
+        }
+    
+        .header{
+            padding: 40px 0;
+    
+            .header-h1{
+                font-size: 2.5rem;
+            }
+    
+            .header-p{
+                font-size: 1.1rem;
+            }
+        }
+    
+        .top-add-search{            
+            .new-book{
+                padding: 10px 30px;
+            }
+    
+            .find-book{
+                padding: 10px 30px;
+            }
+        }
+    
+        .search-add-toggle{
+            .closeBtn{
+                font-size: 2.5rem;
+                top: -50px;
+                left: 265px;
+            }
+    
+            .new-add-panel{
+                margin-bottom: 30px;
+        
+                input{
+                    width: 300px;
+                    font-size: 1rem;
+                    padding: 8px 6px;
+                    border-radius: 4px;
+                    margin-bottom: 15px;
+                }
+    
+                .add-btn{
+                    padding: 10px 30px;
+                }
+            }
+    
+                .search-panel{    
+                    input{
+                        width: 300px;
+                        font-size: 1rem;
+                        padding: 8px 6px;
+                        border-radius: 4px;
+                        margin-bottom: 15px;
+                    }
+    
+                    .fa-search{
+                        font-size: 1.2rem;
+                        top: 3px;
+                    }
+                }
+            }
+    }
+    
+        .book-list{
+            width: 90%;
+            margin-bottom: 30px;
+    
+            .book-item{
+                padding: 15px 20px;
+            }
+    
+            .book-info{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+    
+                .book-title{
+                    margin-right: 50px;
+                }
+    
+                .author-info{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-right: 50px;
+    
+                    .author-name{
+                        font-size: 1.2rem;
+                        margin-right: 25px;
+                    }
+    
+                    .date{
+                        padding: 3px;
+    
+                        .read-year{
+                            font-size: 1rem;
+                            padding: 2px 8px;
+                        }
+    
+                        .year{
+                            font-size: 1rem;
+                            padding: 2px 8px;
+                        }
+                    }
+                }
+    
+                .delete{
+                    padding: 10px 20px;
+                }
+    
+                .deactivated{
+                    padding: 10px 20px;
+    
+                    i{
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+}

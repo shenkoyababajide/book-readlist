@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Booklist App</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <script src="./script.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <div class="book-wrapper">
+        <div class="transparent">
+            <div class="header">
+                <h1 class="header-h1">My Book Journey</h1>
+                <p class="header-p">A man is defined by books he read</p>
+            </div>
+    
+            <div class="top-add-search">
+                <a href = "#" class="new-book">Add Book</a>
+    
+                <a href = "#" class="find-book">Find Book</a>
+            </div>
+    
+            <div class="search-add-toggle">
+                <p class="closeBtn">&times</p>
+                <div class="new-add-panel">
+                    <input type="text" class="book-name" placeholder="Book Name e.g. The Prince">
+                    <input type="text" class="book-author" placeholder="Author e.g. Mark Powell">
+                    <input type="tel" placeholder="Read Year e.g. 1928" class="date-input">
+                    <p class="add-btn">Add Book</p>
+                </div>
+        
+                <div class="search-panel">
+                    <div class="search-btn">
+                        <input type="text" class="add" placeholder="Search by Title">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-list-container">
+                <div class="book-list">
+                    <div class="book-item">
+                        <div class="book-info">
+                            <p class="book-title">things fall apart</p>
+                            <div class="author-info">
+                                <p class="author-name">chinua achebe</p>
+                                <div class="date">
+                                    <p class="read-year">Read In</p>
+                                    <p class="year">2005</p>
+                                </div>
+                            </div>
+                            <a href="#" class="deactivated">delete&nbsp;&nbsp;<i class="fas fa-ban"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-list">
+                    <div class="book-item">
+                        <div class="book-info">
+                            <p class="book-title">a time to kill</p>
+                            <div class="author-info">
+                                <p class="author-name">john grisham</p>
+                                <div class="date">
+                                    <p class="read-year">Read In</p>
+                                    <p class="year">2014</p>
+                                </div>
+                            </div>
+                            <a href="#" class="deactivated">delete&nbsp;&nbsp;<i class="fas fa-ban"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
