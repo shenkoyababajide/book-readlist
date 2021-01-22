@@ -1,3 +1,4 @@
+// Grab all the classes for the program
 const addBookBtn = document.querySelector('.new-book')
 const findBookBtn = document.querySelector('.find-book')
 const addBookPanel = document.querySelector('.new-add-panel')
@@ -12,8 +13,15 @@ bookList = document.querySelector('.book-list')
 const deleteBtn = document.querySelector('.delete')
 const inputField = document.querySelector('.search-btn input')
 const bookTitle = document.querySelectorAll('.book-title')
+
+
+
+// Add Book and Find Book open and close toggler
 let toggler = true
 
+
+
+// Open the new-book addition field
 addBookBtn.addEventListener('click', (e) =>{
     e.preventDefault;
 
@@ -25,6 +33,9 @@ addBookBtn.addEventListener('click', (e) =>{
     }
 })
 
+
+
+// Open the search-field for to search book list
 findBookBtn.addEventListener('click', (e) =>{
     e.preventDefault();
 
@@ -36,6 +47,9 @@ findBookBtn.addEventListener('click', (e) =>{
     }
 })
 
+
+
+// Add Book and Find Book close btn
 closeBtn.addEventListener('click', (e)=>{
     e.preventDefault()
     if(toggler){
@@ -47,76 +61,115 @@ closeBtn.addEventListener('click', (e)=>{
     }
 })
 
+
+
+// On clicking AddBook, do the following:
+// 1. clone a div node,
+// 2. edit its content based on input,
+// 3. add the edited div into the DOM
+// 4. grab the every title, author and year for storage into local storage per click
 addABook.addEventListener('click', (e)=>{
     e.preventDefault()
 
-    const div_booklist = document.createElement('div')
-    div_booklist.classList.add('book-list')
+    // clone a node
+    const clonedDiv = bookList.cloneNode(true)
 
-    const div_bookitem = document.createElement('div')
-    div_bookitem.classList.add('book-item')
+    // edit nodes based on user input
+    clonedDiv.querySelector('.book-title').textContent = bookName.value
+    clonedDiv.querySelector('.author-name').textContent = bookAuthor.value
+    clonedDiv.querySelector('.year').textContent = bookYear.value
 
-    const div_bookinfo = document.createElement('div')
-    div_bookinfo.classList.add('book-info')
+    // edit styles of select node for appearance
+    clonedDiv.querySelector('.deactivated').className = 'delete'
+    clonedDiv.querySelector('.fas.fa-ban').style.display = 'none'
 
-    const p_booktitle = document.createElement('p')
-    p_booktitle.classList.add('book-title')
-    p_booktitle.textContent = bookName.value
+    // insert edited clone into DOM as first child
+    bookListContainer.insertBefore(clonedDiv, bookListContainer.firstChild)
 
-    const div_authorinfo = document.createElement('div')
-    div_authorinfo.classList.add('author-info')
-
-    const a_delete = document.createElement('a')
-    a_delete.classList.add('delete')
-    a_delete.textContent = 'delete'
-
-    const p_author = document.createElement('p')
-    p_author.classList.add('author-name')
-    p_author.textContent = bookAuthor.value
-
-    const div_dateread = document.createElement('div')
-    div_dateread.classList.add('date')
-
-    const p_readyear = document.createElement('p')
-    p_readyear.classList.add('read-year')
-    p_readyear.textContent = 'Read In'
-
-    const p_year = document.createElement('p')
-    p_year.classList.add('year')
-    p_year.textContent = bookYear.value
-
-    div_booklist.appendChild(div_bookitem).appendChild(div_bookinfo).appendChild(p_booktitle)
-
-    div_booklist.appendChild(div_bookitem).appendChild(div_bookinfo).appendChild(div_authorinfo)
-
-    div_booklist.appendChild(div_bookitem).appendChild(div_bookinfo).appendChild(div_authorinfo).appendChild(p_author)
-
-    div_booklist.appendChild(div_bookitem).appendChild(div_bookinfo).appendChild(div_authorinfo).appendChild(div_dateread).appendChild(p_readyear)
-
-    div_booklist.appendChild(div_bookitem).appendChild(div_bookinfo).appendChild(div_authorinfo).appendChild(div_dateread).appendChild(p_year)
-
-    div_booklist.appendChild(div_bookitem).appendChild(div_bookinfo).appendChild(a_delete)
-
-//    bookListContainer.appendChild(div_booklist)
-    bookListContainer.insertBefore(div_booklist, bookListContainer.firstChild)
-
+    //reset the input fields after clicking Add Book
     bookName.value = ''
     bookAuthor.value = ''
     bookYear.value= ''
 
+    // remove the AddBook field upon adding a newbook
     addBookPanel.style.display = 'none'
     searchBookPanel.style.display = 'none'
     closeBtn.style.display = 'none'
     addBookBtn.style.display = 'unset'
     findBookBtn.style.display = 'unset'
+
+    // grab the new book input from user
+    const title = clonedDiv.querySelector('.book-title').textContent
+    const author = clonedDiv.querySelector('.author-name').textContent
+    const year = clonedDiv.querySelector('.year').textContent
+
+    // store the input as an object
+    let newBook = {
+        title: title,
+        author: author,
+        year: year
+    }
+
+    // add an empty array if local storage is initially empty
+    if(localStorage.getItem('storedBooks') == null){
+        localStorage.setItem('storedBooks', '[]')
+    }
+
+    // push new book information into the array and save it on local storage for use later
+    const storedBooks = JSON.parse(localStorage.getItem('storedBooks'))
+    storedBooks.push(newBook)
+    localStorage.setItem('storedBooks', JSON.stringify(storedBooks))
+
 })
 
+
+
+// grab stored books, and insert into the DOM upon window load
+document.addEventListener('DOMContentLoaded', (e)=>{
+    // grab the books stored in the local storage
+    const oldBooks = JSON.parse(localStorage.getItem('storedBooks'))
+
+    //loop through each book and add to DOM
+    oldBooks.forEach((oldBook)=>{
+    // clone a node
+    const clonedDiv = bookList.cloneNode(true)
+
+    // edit nodes based on user input
+    clonedDiv.querySelector('.book-title').textContent = oldBook.title
+    clonedDiv.querySelector('.author-name').textContent = oldBook.author
+    clonedDiv.querySelector('.year').textContent = oldBook.year
+
+    // edit styles of select node for appearance
+    clonedDiv.querySelector('.deactivated').className = 'delete'
+    clonedDiv.querySelector('.fas.fa-ban').style.display = 'none'
+
+    // insert edited clone into DOM as first child
+    bookListContainer.insertBefore(clonedDiv, bookListContainer.firstChild)
+    })
+})
+
+
+
+// delete an item from the book list on clicking delete
 bookListContainer.addEventListener('click', (e)=>{
     e.preventDefault()
-    if(e.target.classList == 'delete'){
-        let remove = e.target.parentElement.parentElement.parentElement
-        remove.parentElement.removeChild(remove)
-    }
+
+    // grab the books array in the local storage
+    const oldBooks = JSON.parse(localStorage.getItem('storedBooks'))
+
+    // loop through each book and remove both the booklist from the DOM and local storage
+    oldBooks.forEach((oldBook)=>{
+        if(e.target.parentElement.querySelector('.book-title').textContent == oldBook.title){
+            let remove = e.target.parentElement.parentElement.parentElement
+            remove.parentElement.removeChild(remove)
+
+            let deleted = oldBooks.findIndex(oldBook => oldBook.title === e.target.parentElement.querySelector('.book-title').textContent)
+
+            oldBooks.splice(deleted, 1)
+
+            localStorage.setItem('storedBooks', JSON.stringify(oldBooks))
+        }
+    })
 })
 
 inputField.addEventListener('keyup', (e)=>{
