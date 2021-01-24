@@ -9,7 +9,7 @@ const bookName = document.querySelector('.book-name')
 const bookAuthor = document.querySelector('.book-author')
 const bookYear = document.querySelector('.date-input')
 const bookListContainer = document.querySelector('.book-list-container')
-bookList = document.querySelector('.book-list')
+const bookList = document.querySelector('.book-list')
 const deleteBtn = document.querySelector('.delete')
 const inputField = document.querySelector('.search-btn input')
 const bookTitle = document.querySelectorAll('.book-title')
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', (e)=>{
 
     // edit styles of select node for appearance
     clonedDiv.querySelector('.deactivated').className = 'delete'
-    clonedDiv.querySelector('.fas.fa-ban').style.display = 'none'
+    clonedDiv.querySelector('.fas.fa-ban').className = 'far fa-trash-alt'
 
     // insert edited clone into DOM as first child
     bookListContainer.insertBefore(clonedDiv, bookListContainer.firstChild)
@@ -158,28 +158,36 @@ bookListContainer.addEventListener('click', (e)=>{
     const oldBooks = JSON.parse(localStorage.getItem('storedBooks'))
 
     // loop through each book and remove both the booklist from the DOM and local storage
-    oldBooks.forEach((oldBook)=>{
-        if(e.target.parentElement.querySelector('.book-title').textContent == oldBook.title){
-            let remove = e.target.parentElement.parentElement.parentElement
-            remove.parentElement.removeChild(remove)
+    if(e.target.className == 'delete'){
+        let parent = e.target.parentElement.parentElement.parentElement
+        parent.style.display = 'none'
 
-            let deleted = oldBooks.findIndex(oldBook => oldBook.title === e.target.parentElement.querySelector('.book-title').textContent)
-
-            oldBooks.splice(deleted, 1)
-
-            localStorage.setItem('storedBooks', JSON.stringify(oldBooks))
-        }
-    })
+        oldBooks.forEach((oldBook)=>{
+            if(e.target.parentElement.querySelector('.book-title').textContent == oldBook.title){
+                let deleted = oldBooks.findIndex(oldBook => oldBook.title === e.target.parentElement.querySelector('.book-title').textContent)
+    
+                oldBooks.splice(deleted, 1)
+    
+                localStorage.setItem('storedBooks', JSON.stringify(oldBooks))
+            }
+        })
+    }
 })
 
+// searching the books for matching titles
 inputField.addEventListener('keyup', (e)=>{
     e.preventDefault()
+//  grab the input text and all books
     let searchStr = e.target.value.toLowerCase()
-    bookTitle.forEach((title)=>{
-        if(title.textContent.toLowerCase().indexOf(searchStr) != -1){
-            title.parentElement.parentElement.parentElement.style.display = 'block'
+    const titleLists = document.querySelectorAll('.book-list')
+
+//  loop through the books, and filter based on search input
+    titleLists.forEach((titleList)=>{
+        let titleName = titleList.querySelector('.book-title').textContent
+        if(titleName.toLowerCase().indexOf(searchStr) != -1){
+            titleList.style.display = 'flex'
         }else{
-            title.parentElement.parentElement.parentElement.style.display = 'none'
+            titleList.style.display = 'none'
         }
     })
 })
